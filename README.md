@@ -1,226 +1,152 @@
-# 优选订阅生成器 WorkerVless2sub
+Here is the translation of the provided Chinese text into English:
 
-### 这个是一个通过 Cloudflare Workers 搭建，自动生成优选线路 VLESS / Trojan 节点订阅内容生成器 [[实现原理]](https://www.youtube.com/watch?v=p-KhFJAC4WQ&t=70s)
+---
 
-Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networks](https://alice.ws/aff.php?aff=15)提供的云服务器维持[CM订阅转换服务](https://sub.fxxk.dedyn.io/)！**
+# Preferred Subscription Generator WorkerVless2sub
 
-# Pages 部署方法 [视频教程](https://www.youtube.com/watch?v=p-KhFJAC4WQ&t=509s)
+### This is a subscription content generator for VLESS / Trojan nodes, built using Cloudflare Workers, which automatically generates preferred routes [[Implementation Principle]](https://www.youtube.com/watch?v=p-KhFJAC4WQ&t=70s).
 
-### 1. 部署 Cloudflare Pages：
-   - 在 Github 上先 Fork 本项目，并点上 Star !!!
-   - 在 Cloudflare Pages 控制台中选择 `连接到 Git`后，选中 `WorkerVless2sub`项目后点击 `开始设置`。
+Telegram Group: [@CMLiussss](https://t.me/CMLiussss), **Thanks to [Alice Networks](https://alice.ws/aff.php?aff=15) for providing the cloud servers to maintain the [CM Subscription Conversion Service](https://sub.fxxk.dedyn.io/)!**
+
+# Pages Deployment Method [Video Tutorial](https://www.youtube.com/watch?v=p-KhFJAC4WQ&t=509s)
+
+### 1. Deploy Cloudflare Pages:
+   - First, Fork this project on GitHub and click on Star!!!
+   - In the Cloudflare Pages console, select `Connect to Git`, then choose the `WorkerVless2sub` project and click `Start Setup`.
      
-### 2. 给 Pages绑定 自定义域：
-   - 在 Pages控制台的 `自定义域`选项卡，下方点击 `设置自定义域`。
-   - 填入你的自定义次级域名，注意不要使用你的根域名，例如：
-     您分配到的域名是 `fuck.cloudns.biz`，则添加自定义域填入 `sub.fuck.cloudns.biz`即可；
-   - 按照 Cloudflare 的要求将返回你的域名DNS服务商，添加 该自定义域 `sub`的 CNAME记录 `WorkerVless2sub.pages.dev` 后，点击 `激活域`即可。
+### 2. Bind Custom Domain to Pages:
+   - In the Pages console, go to the `Custom Domains` tab, then click `Set Custom Domain`.
+   - Enter your custom subdomain (make sure not to use your root domain), for example:
+     If your domain is `fuck.cloudns.biz`, enter `sub.fuck.cloudns.biz` as the custom domain.
+   - Follow Cloudflare’s instructions to add a CNAME record `WorkerVless2sub.pages.dev` for the custom domain `sub`, then click `Activate Domain`.
 
-### 3. 修改 快速订阅入口 以及 添加内置节点信息：
+### 3. Modify Quick Subscription Access and Add Built-in Node Information:
 
-  例如您的pages项目域名为：`sub.fuck.cloudns.biz`；
-   - 添加 `TOKEN` 变量，快速订阅访问入口，默认值为: `auto` ，获取订阅器默认节点订阅地址即 `/auto` ，例如 `https://sub.fuck.cloudns.biz/auto`；
+  For example, if your Pages project domain is: `sub.fuck.cloudns.biz`;
+   - Add a `TOKEN` variable, for quick subscription access; default value: `auto`. The default subscription node address is `/auto`, for example, `https://sub.fuck.cloudns.biz/auto`;
 
-**添加 VLESS 内置节点信息**
-   - 添加 `HOST` 变量，例如 `edgetunnel-2z2.pages.dev`；
-   - 添加 `UUID` 变量，例如 `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`；
-   - 添加 `PATH` 变量，例如 `/?ed=2560`；
+**Add VLESS Built-in Node Information**
+   - Add a `HOST` variable, for example, `edgetunnel-2z2.pages.dev`;
+   - Add a `UUID` variable, for example, `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`;
+   - Add a `PATH` variable, for example, `/?ed=2560`;
 
-**添加 Trojan 内置节点信息**
-   - 添加 `HOST` 变量，例如 `hbpb.us.kg`；
-   - 添加 `PASSWORD` 变量，例如 `bpb-trojan`；
-   - 添加 `PATH` 变量，例如 `/tr?ed=2560`；
+**Add Trojan Built-in Node Information**
+   - Add a `HOST` variable, for example, `hbpb.us.kg`;
+   - Add a `PASSWORD` variable, for example, `bpb-trojan`;
+   - Add a `PATH` variable, for example, `/tr?ed=2560`;
 
-### 4. 添加你的专属优选线路：
+### 4. Add Your Exclusive Preferred Routes:
 
-   - 添加变量 `ADD`/`ADDNOTLS` 本地静态的优选线路，若不带端口号 TLS默认端口为443 / noTLS默认端口为80，#号后为备注别名，例如：
+   - Add variables `ADD`/`ADDNOTLS` for local static preferred routes. If no port is provided, TLS default port is 443, and noTLS default port is 80, with `#` used for alias comments, for example:
    ```
-   icook.tw:2053#优选域名
-   cloudflare.cfgo.cc#优选官方线路
+   icook.tw:2053#Preferred Domain
+   cloudflare.cfgo.cc#Official Preferred Route
    ```
 
-   - 添加变量 `ADDAPI`/`ADDNOTLSAPI` 为 **优选IP地址txt文件** 的 URL。例如：
+   - Add variables `ADDAPI`/`ADDNOTLSAPI` for **Preferred IP address txt files** URLs, for example:
    ```url
    https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt
    https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesipv6api.txt
    ```
 
 <details>
-<summary><code><strong>「 我不是小白！我有IP库！我知道IPtest是什么！我也有csv测速文件！ 」</strong></code></summary>
+<summary><code><strong>"I'm not a beginner! I have an IP database! I know what IPtest is! I also have a CSV speed test file!"</strong></code></summary>
 
-   - 添加变量 `ADDCSV` 为 **iptest测速结果csv文件地址** 的 URL。例如：
+   - Add the variable `ADDCSV` for **IPtest speed test CSV file URLs**, for example:
    ```js
    https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv
    ```
-   - 添加变量 `DLS` ，意为`ADDCSV`满足最低速度的要求，不满足改数值以上的IP将不会添加至优选订阅内容。注意：不考虑单位，只看数值，请按照您的测速结果而定。例如：
+   - Add the variable `DLS`, which stands for `ADDCSV` meeting the minimum speed requirement. IPs that do not meet this value will not be added to the preferred subscription content. Note: Ignore units, only consider the numerical value, and adjust based on your speed test results. For example:
    ```js
    8
    ```
 
  </details>
 
-# Workers 部署方法 [视频教程](https://youtu.be/AtCF7eq0hcE)
+# Workers Deployment Method [Video Tutorial](https://youtu.be/AtCF7eq0hcE)
 
-### 1. 部署 Cloudflare Worker：
+### 1. Deploy Cloudflare Worker:
 
-   - 在 Cloudflare Worker 控制台中创建一个新的 Worker。
-   - 将 [worker.js](https://github.com/cmliu/WorkerVless2sub/blob/main/_worker.js)  的内容粘贴到 Worker 编辑器中。
+   - In the Cloudflare Worker console, create a new Worker.
+   - Paste the content of [worker.js](https://github.com/cmliu/WorkerVless2sub/blob/main/_worker.js) into the Worker editor.
 
+### 2. Modify Quick Subscription Access and Add Built-in Node Information:
 
-### 2. 修改 快速订阅入口 以及 添加内置节点信息：
+  For example, if your Workers project domain is: `sub.cmliussss.workers.dev`;
+   - Add a `TOKEN` variable, for quick subscription access; default value: `auto`. The default subscription node address is `/auto`, for example, `https://sub.cmliussss.workers.dev/auto`;
 
-  例如您的workers项目域名为：`sub.cmliussss.workers.dev`；
-   - 添加 `TOKEN` 变量，快速订阅访问入口，默认值为: `auto` ，获取订阅器默认节点订阅地址即 `/auto` ，例如 `https://sub.cmliussss.workers.dev/auto`；
+**Add VLESS Built-in Node Information**
+   - Add a `HOST` variable, for example, `edgetunnel-2z2.pages.dev`;
+   - Add a `UUID` variable, for example, `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`;
+   - Add a `PATH` variable, for example, `/?ed=2560`;
 
-**添加 VLESS 内置节点信息**
-   - 添加 `HOST` 变量，例如 `edgetunnel-2z2.pages.dev`；
-   - 添加 `UUID` 变量，例如 `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`；
-   - 添加 `PATH` 变量，例如 `/?ed=2560`；
+**Add Trojan Built-in Node Information**
+   - Add a `HOST` variable, for example, `hbpb.us.kg`;
+   - Add a `PASSWORD` variable, for example, `bpb-trojan`;
+   - Add a `PATH` variable, for example, `/tr?ed=2560`;
 
-**添加 Trojan 内置节点信息**
-   - 添加 `HOST` 变量，例如 `hbpb.us.kg`；
-   - 添加 `PASSWORD` 变量，例如 `bpb-trojan`；
-   - 添加 `PATH` 变量，例如 `/tr?ed=2560`；
+### 3. Add Your Exclusive Preferred Routes:
 
-### 3. 添加你的专属优选线路：
+**3.1 Modify `addresses` Parameter Example**
 
-**3.1 修改 addresses 参数示例**
-
- - 修改 `addresses` 参数添加本地静态的优选线路，若不带端口号默认443，不支持生成非TLS订阅，#号后为备注别名，例如：
+ - Modify the `addresses` parameter to add local static preferred routes. If no port is specified, it defaults to 443 for TLS and does not support generating non-TLS subscriptions. Use `#` for alias comments, for example:
 	```js
 	let addresses = [
-		'icook.tw:2053#优选域名',
-		'cloudflare.cfgo.cc#优选官方线路',
-		'185.221.160.203:443#电信优选IP',
+		'icook.tw:2053#Preferred Domain',
+		'cloudflare.cfgo.cc#Official Preferred Route',
+		'185.221.160.203:443#Telecom Preferred IP',
 	];
 	```
-	该方式仅推荐添加优选域名的部分，频繁变更的优选推荐通过 `addressesapi` 来实现。
+	We recommend adding preferred domain entries this way, and frequent changes should be handled with `addressesapi`.
 
-
- **3.2 修改 addressesapi 参数示例**
+ **3.2 Modify `addressesapi` Parameter Example**
  
- - 修改 `addressesapi` 参数，在脚本中设置 `addressesapi` 变量为 **优选IP地址txt文件** 的 URL。例如：
+ - Modify the `addressesapi` parameter, setting the `addressesapi` variable to **Preferred IP address txt file** URLs, for example:
 	```js
 	let addressesapi = [
 		'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt',
  		'https://addressesapi.090227.xyz/CloudFlareYes',
 	];
 	```
-	可参考 [addressesapi.txt](https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt) 内容格式 自行搭建。
-
+	You can refer to [addressesapi.txt](https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt) for content format and set up your own.
 
 <details>
-<summary><code><strong>「 我不是小白！我有IP库！我知道IPtest是什么！我也有csv测速文件！ 」</strong></code></summary>
+<summary><code><strong>"I'm not a beginner! I have an IP database! I know what IPtest is! I also have a CSV speed test file!"</strong></code></summary>
 
  
-  **3.3 修改 addressescsv 参数示例**
+  **3.3 Modify `addressescsv` Parameter Example**
   
- - 修改 `addressescsv` 参数，在脚本中设置 `addressescsv` 变量为 **iptest测速结果csv文件地址** 的 URL。例如：
+ - Modify the `addressescsv` parameter, setting the `addressescsv` variable to **IPtest speed test result CSV file URL**, for example:
 	```js
-	let DLS = 4;//速度下限
+	let DLS = 4; // Speed threshold
 	let addressescsv = [
 		'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv',
  		'https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv',
 	];
 	```
-	`DLS` 为要求满足的最低速度，不满足改数值以上的IP将不会添加至优选订阅内容。注意：不考虑单位，只看数值，请按照您的测速结果而定。
+	`DLS` is the minimum speed required. IPs not meeting this value will not be added to the preferred subscription content. Note: Only consider the numeric value, adjust according to your speed test results.
 
  </details>
 
+# Subscription Generator Usage [Video Tutorial](https://youtu.be/OjqCKeEY7DQ)
 
-
-# 订阅生成器 使用方法 [视频教程](https://youtu.be/OjqCKeEY7DQ)
-
-  例如您的workers项目域名为：`sub.cmliussss.workers.dev`；
+  For example, if your Workers project domain is: `sub.cmliussss.workers.dev`;
   
-## 1. 快速订阅
+## 1. Quick Subscription
 
-   - 添加 `TOKEN` 变量，快速订阅访问入口，默认值为: `auto` ，获取订阅器默认节点订阅地址即 `/auto` ，例如：
+   - Add a `TOKEN` variable for quick subscription access; default value: `auto`. The default subscription node address is `/auto`, for example:
      ```url
      https://sub.cmliussss.workers.dev/auto
      ```
      
-## 2. 自定义订阅 
-### VLESS订阅
-   - **自定义订阅格式** `https://[你的Workers域名]/sub?host=[你的Vless域名]&uuid=[你的UUID]&path=[你的ws路径]`
-   - **host**：您的 VLESS 伪装域名，例如 `edgetunnel-2z2.pages.dev`；
-   - **uuid**：您的 VLESS 客户端 UUID，例如 `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`；
-   - **path**（可选）：您的 VLESS 路径（没有可留空不填），例如 `/?ed=2560`。
-   - **sni**（可选）：您的 VLESS 的SNI（留空则默认同`host`），例如 `www.10068.cn`。
-   - **type**（可选）：您的 VLESS 的传输协议（留空则默认为`ws`），例如 `splithttp`。
-   - 自定义订阅地址如下：
+## 2. Custom Subscription 
+### VLESS Subscription
+   - **Custom subscription format** `https://[Your Workers Domain]/sub?host=[Your Vless Domain]&uuid=[Your UUID]&path=[Your ws Path]`
+   - **host**: Your VLESS disguised domain, e.g., `edgetunnel-2z2.pages.dev`;
+   - **uuid**: Your VLESS client UUID, e.g., `30e9c5c8-ed28-4cd9-b008-dc67277f8b02`;
+   - **path** (optional): Your VLESS path (leave empty if not needed), e.g., `/?ed=2560`.
+   - **sni** (optional): Your VLESS SNI (default is same as `host`), e.g., `www.10068.cn`.
+   - **type** (optional): Your VLESS transport protocol (default is `ws`), e.g., `splithttp`.
+   - Custom subscription URL example:
      ```url
-     https://sub.cmliussss.workers.dev/sub?host=edgetunnel-2z2.pages.dev&uuid=30e9c5c8-ed28-4cd9-b008-dc67277f8b02&path=/?ed=2560&sni=www.10068.cn&type=splithttp
-     ```
-   - 注意路径必须包含 "/sub"。
-
-### Trojan订阅
-   - **自定义订阅格式** `https://[你的Workers域名]/sub?host=[你的Trojan域名]&pw=[你的password]&path=[你的ws路径]`
-   - **host**：您的 Trojan 伪装域名，例如 `hbpb.us.kg`；
-   - **uuid**：您的 Trojan 客户端 Password，例如 `bpb-trojan`；
-   - **path**（可选）：您的 Trojan 路径（没有可留空不填），例如 `/tr?ed=2560`。
-   - **sni**（可选）：您的 Trojan 的SNI（留空则默认同`host`），例如 `www.10068.cn`。
-   - **type**（可选）：您的 Trojan 的传输协议（留空则默认为`ws`），例如 `splithttp`。
-   - 自定义订阅地址如下：
-     ```url
-     https://sub.cmliussss.workers.dev/sub?host=hbpb.us.kg&pw=bpb-trojan&path=/tr?ed=2560
-     ```
-   - 注意路径必须包含 "/sub"。
-
-## 3. 指定 clash、singbox 配置文件
-
-   - 添加 `format=clash` 键值，获取 clash 订阅配置，例如：
-     ```url
-     https://sub.cmliussss.workers.dev/auto?format=clash
-     https://sub.cmliussss.workers.dev/sub?format=clash&host=edgetunnel-2z2.pages.dev&uuid=30e9c5c8-ed28-4cd9-b008-dc67277f8b02&path=/?ed=2048
-     ```
-     
-   - 添加 `format=singbox` 键值，获取 singbox 订阅配置，例如：
-     ```url
-     https://sub.cmliussss.workers.dev/auto?format=singbox
-     https://sub.cmliussss.workers.dev/sub?format=singbox&host=edgetunnel-2z2.pages.dev&uuid=30e9c5c8-ed28-4cd9-b008-dc67277f8b02&path=/?ed=2048
-     ```
-
-----
-
-# 变量说明
-| 变量名 | 示例 | 备注 | 
-|--------|---------|-----|
-| TOKEN | `auto` | 快速订阅内置节点的订阅路径地址 /auto (支持多元素, 元素之间使用`,`或`换行`作间隔)| 
-| HOST | `edgetunnel-2z2.pages.dev` | 快速订阅内置节点的伪装域名 (支持多元素, 订阅时随机获取, 元素之间使用`,`或`换行`作间隔) | 
-| UUID | `b7a392e2-4ef0-4496-90bc-1c37bb234904` | 快速订阅内置VLESS节点的UUID (与变量`PASSWORD`冲突, 共存时优先使用`PASSWORD`) | 
-| KEY | `token` | 动态UUID秘钥，使用变量`KEY`的时候，将不再启用变量`UUID`|
-| TIME | `7` | 动态UUID有效时间(单位:天)|
-| UPTIME | `3` | 动态UUID更新时间(默认:北京时间`3`点更新) |
-| PASSWORD | `bpb-trojan` | 快速订阅内置Trojan节点的password (与变量`UUID`冲突, 共存时优先使用`PASSWORD`) | 
-| PATH | `/?ed=2560` | 快速订阅内置节点的路径信息 | 
-| SNI | `www.10068.cn` | 快速订阅内置节点的SNI信息（留空则默认同`host`） | 
-| TYPE | `splithttp` | 快速订阅内置节点的传输协议信息（留空则默认为`ws`） | 
-| ADD | `icook.tw:2053#官方优选域名` | 对应`addresses`字段 (支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| ADDAPI | [https://raw.github.../addressesapi.txt](https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt) | 对应`addressesapi`字段 (支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| ADDNOTLS | `icook.hk:8080#官方优选域名` | 对应`addressesnotls`字段 (支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| ADDNOTLSAPI | [https://raw.github.../addressesapi.txt](https://raw.githubusercontent.com/cmliu/CFcdnVmess2sub/main/addressesapi.txt) | 对应`addressesnotlsapi`字段 (支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| ADDCSV | [https://raw.github.../addressescsv.csv](https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressescsv.csv) | 对应`addressescsv`字段 (支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| DLS | `8` |`addressescsv`测速结果满足速度下限 | 
-| NOTLS | `false` | 改为`true`, 将不做域名判断 始终返回noTLS节点 | 
-| TGTOKEN | `6894123456:XXXXXXXXXX0qExVsBPUhHDAbXXXXXqWXgBA` | 发送TG通知的机器人token | 
-| TGID | `6946912345` | 接收TG通知的账户数字ID | 
-| SUBAPI | `subapi.fxxk.dedyn.io` | clash、singbox等 订阅转换后端 | 
-| SUBCONFIG | [https://raw.github.../ACL4SSR_Online_Full_MultiMode.ini](https://raw.githubusercontent.com/cmliu/ACL4SSR/main/Clash/config/ACL4SSR_Online_Full_MultiMode.ini) | clash、singbox等 订阅转换配置文件 | 
-| SUBNAME | `WorkerVless2sub` | 订阅生成器名称 | 
-| SOCKS5DATA | [https://raw.github.../socks5Data](https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/socks5Data) | Socks5代理池 | 
-| PS | `【请勿测速】` | 节点名备注消息 | 
-| PROXYIP | `proxyip.fxxk.dedyn.io` | 默认分配的ProxyIP, 多ProxyIP将随机分配(支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| CMPROXYIPS | `proxyip.aliyun.fxxk.dedyn.io#HK` | 识别HK后分配对应的ProxyIP(支持多元素, 元素之间使用`,`或`换行`作间隔) | 
-| CFPORTS | `2053`,`2096`,`8443` | CF账户标准端口列表 |
-| LINK | `vless://b7a39...`,`vmess://ew0K...`,`https://sub...` | 补充节点的LINK, 可同时放入多个节点链接与多个订阅链接(支持多元素, 元素之间使用`,`或`换行`作间隔) |
-
-----
-
-## Star 星星走起
-[![Stargazers over time](https://starchart.cc/cmliu/WorkerVless2sub.svg?variant=adaptive)](https://starchart.cc/cmliu/WorkerVless2sub)
-
-# 致谢
-<a href="https://alice.ws/aff.php?aff=15"><img src="https://alicenetworks.net/templates/lagom2/assets/img/logo/logo_big.194980063.png" width="150" height="75" alt="Alice Networks LTD"/></a>，[SAKURA-YUMI](https://github.com/SAKURA-YUMI)，[EzSync](https://github.com/EzSync)、[ACL4SSR](https://github.com/ACL4SSR/ACL4SSR/tree/master/Clash/config)、[3Kmfi6HP](https://github.com/6Kmfi6HP/EDtunnel/blob/main/.github/workflows/obfuscator.yml)
-
-
+     https://sub.cmliussss.workers.dev/sub?host=edgetunnel-2z2.pages.dev&uuid=30e9c5c
